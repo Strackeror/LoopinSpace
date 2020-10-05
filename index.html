@@ -3,21 +3,62 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Loopin' Space</title>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <title>Loopin' Space</title>
   </head>
   <body style="text-align: center; background: #131726">
-    <canvas id="unity-canvas" style="width: 800px; height: 800px; background: #131726; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);"></canvas>
+    <canvas id="unity-canvas" style="width: 800px; height: 800px; background: black; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);"></canvas>
+    <div id="Menu">
+      <h1 style="font-size: 50px;">Loopin' Space</h1>
+      <br>
+      <h2 style="text-decoration: underline; font-style: italic; margin-bottom: 35px;">Controls</h2>
+      <p>Arrow keys / WASD : Move ship</p>
+      <p>Left click : Hold to charge, release to launch</p>
+      <p>F11 : Full Screen Mode</p>
+      <br><br>
+      <h2 style="text-decoration: underline; font-style: italic; margin-bottom: 35px;">Pro Tips</h2>
+      <p>You can't move while your engine is launched, so be careful with your positioning !</p>
+      <p>The more you hold the fire button, the fastest the engine will travel.</p>
+      <p>While yellow ennemy move in a straight line, the purple one will chase you.</p>
+      <p>Try to (unlock condition) to fight the boss !</p>
+      <br>
+      <h1 style="font-style: italic; font-size: 40px;">Press fire to start the game</h1>
+    </div>
     <script src="Build/Export.loader.js"></script>
     <script>
-      createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/Export.data",
-        frameworkUrl: "Build/Export.framework.js",
-        codeUrl: "Build/Export.wasm",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "Loopin' Space",
-        productVersion: "1.0",
+      document.getElementById('unity-canvas').style.display = "none";
+      var launch = 1;
+      document.addEventListener('click', function() {
+        if (launch) {
+          launch = 0;
+          document.getElementById('Menu').style.display = "none";
+          document.getElementById('unity-canvas').style.display = "block";
+          launchGame();
+        }
       });
+      function launchGame() {
+        createUnityInstance(document.querySelector("#unity-canvas"), {
+          dataUrl: "Build/Export.data",
+          frameworkUrl: "Build/Export.framework.js",
+          codeUrl: "Build/Export.wasm",
+          streamingAssetsUrl: "StreamingAssets",
+          companyName: "DefaultCompany",
+          productName: "Loopin' Space",
+          productVersion: "1.0",
+        });
+      }
     </script>
+    <style>
+      #Menu {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        cursor: none;
+        color: white;
+        font-family: 'Press Start 2P', cursive;
+      }
+    </style>
   </body>
 </html>
